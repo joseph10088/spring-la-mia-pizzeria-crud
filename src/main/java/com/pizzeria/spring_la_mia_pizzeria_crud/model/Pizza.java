@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="pizza")
@@ -16,15 +19,23 @@ public class Pizza {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @NotBlank(message="Name is mandatory")
     @Column(name="name_pizza", nullable=false)
     private String name;
 
+    @NotNull
+    @NotBlank(message="Photo is mandatory")
     @Lob
     @Column(columnDefinition = "TEXT", nullable=true)
     private String description;
 
+    @NotNull
+    @NotBlank(message="Photo is mandatory")
     private String photo;
 
+    @NotNull(message="Price cannot be null" )
+    @Min(value=1)
     @Column(nullable=false)
     private Double price;
 
@@ -38,7 +49,9 @@ public class Pizza {
         this.description = description;
     }
 
-    
+    public Integer getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
