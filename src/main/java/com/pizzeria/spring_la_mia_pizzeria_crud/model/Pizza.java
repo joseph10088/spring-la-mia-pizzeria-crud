@@ -25,7 +25,7 @@ public class Pizza {
     private String name;
 
     @NotNull
-    @NotBlank(message="Photo is mandatory")
+    @NotBlank(message="description is mandatory")
     @Lob
     @Column(columnDefinition = "TEXT", nullable=true)
     private String description;
@@ -47,6 +47,10 @@ public class Pizza {
         this.photo = photo;
         this.price = price;
         this.description = description;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {

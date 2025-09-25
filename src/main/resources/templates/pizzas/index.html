@@ -41,6 +41,7 @@
                     <div class="text-center">
                         <h5 th:text="${item.name}"></h5>
                         <a class="btn btn-dark" th:href="@{pizzas/show/{id}(id=${item.id})}">Details</a>
+                        <a class="btn btn-dark" th:href="@{pizzas/edit/{id}(id=${item.id})}">Edit</a>
                     </div>
                 </div>
             </div>

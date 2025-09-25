@@ -17,7 +17,7 @@
             <h1>New pizza</h1>
             <form id="pizza-form" th:object="${pizza}" th:action="@{/pizzas/create}" method="post">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-md-8">
                         <div class="row">
                             <div class="col-12">
                                 <label class="form-label" for="name">Name</label>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label" for="description">Description</label>
-                                <input id="description" class="form-control" type="text" th:field="*{description}" th:errorclass="is-invalid">
+                                <textarea id="description" class="form-control" type="text" th:field="*{description}" th:errorclass="is-invalid"></textarea>
                                 <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback mb-2">
                                     <span th:each="err : ${#fields.errors('description')}" th:text="${err}"></span>
                                 </div>
@@ -40,14 +40,14 @@
                                     <span th:each="err : ${#fields.errors('photo')}" th:text="${err}"></span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-3">
                                 <label class="form-label" for="price">Price</label>
                                 <input id="price" class="form-control" type="number" th:field="*{price}" th:errorclass="is-invalid">
                                 <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback mb-2">
                                     <span th:each="err : ${#fields.errors('price')}" th:text="${err}"></span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a class="btn btn-danger" th:href="@{/pizzas}">Cancel</a>
                             </div>

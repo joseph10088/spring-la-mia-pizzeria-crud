@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.pizzeria.spring_la_mia_pizzeria_crud.model.Pizza;
 import com.pizzeria.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 
 import jakarta.validation.Valid;
+
 
 
 
@@ -69,6 +71,28 @@ public class pizzaController {
             redirectAttributes.addFlashAttribute("successMessage", "Pizza created success");
             return "redirect:/pizzas";
         }
+
+        @GetMapping("/edit/{id}")
+        public String editPizza(@PathVariable("id")Integer id, Model model) {
+            Pizza pizza = repository.findById(id).get();
+            model.addAttribute("pizza", pizza);
+            return "/pizzas/edit";
+        }
+        
+
+        @PostMapping("/edit/{id}")
+        public String editSavePizza(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+            Pizza oldPizza = repository.findById(formPizza.getId()).get();
+            if(!formPizza.getName().equals(oldPizza.getName())){
+                bindingResult.addError(new ObjectError("name", "not possible to change the name !"));
+            }
+            if(bindingResult.hasErrors()){
+                return "/pizzas/edit";
+            }
+            repository.save(formPizza);
+            return "redirect:/pizzas";
+        }
+        
         
         
 }
