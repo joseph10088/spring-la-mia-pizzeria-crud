@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
 
 
 
+
 @Controller
 @RequestMapping("/pizzas")
 public class pizzaController {
@@ -93,6 +94,11 @@ public class pizzaController {
             return "redirect:/pizzas";
         }
         
+        @PostMapping("/delete/{id}")
+        public String delete(@PathVariable("id") Integer id) {
+            repository.deleteById(id);
+            return "redirect:/pizzas";
+        }
         
         
 }
